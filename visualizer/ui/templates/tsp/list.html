@@ -1,0 +1,13 @@
+<head>
+<title>TSP</title>
+</head>
+<body>
+{% for val in N %}
+<b>N = {{ val.1 }}</b><br/>
+<ul>
+    {% for alg in algo %}
+        <li><a href="{% url 'index' %}?in={{ val.0 }}&algo={{ alg.0 }}">{{ alg.1 }} </a></li>
+    {% endfor %}
+</ul>
+{% endfor %}
+</body>

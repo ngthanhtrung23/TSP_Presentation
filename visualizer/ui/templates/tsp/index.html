@@ -1,0 +1,42 @@
+<head>
+<title>TSP</title>
+</head>
+<body>
+<link rel="stylesheet" type="text/css" href="http://jsxgraph.uni-bayreuth.de/distrib/jsxgraph.css" />
+<script type="text/javascript" src="http://jsxgraph.uni-bayreuth.de/distrib/jsxgraphcore.js"></script>
+
+<b>N = {{ n }}</b><br/>
+<b>Algo: {{ algo }}</b><br/>
+<b>Reported Length: {{ reported_length }}</b><br/>
+<p>Actual Length: {{ actual_length }} / Optimal: {{ optimal }}</p>
+
+<div id="jxgbox" class="jxgbox" style="width:500px; height:600px;margin-top: 15px"></div>
+
+<script type="text/javascript">
+
+{# Draw boundary #}
+var board = JXG.JSXGraph.initBoard('jxgbox', {
+    boundingbox: [
+        {{ minx }}, {{ maxy }}, {{ maxx }}, {{ miny }}
+    ],
+    axis:true});
+
+{# Draw points #}
+{% for pt in pts %}
+board.create('point',[{{pt.0}},{{pt.1}}], {name: ''});
+{% endfor %}
+
+board.create('point',[{{pts.0.0}},{{pts.0.1}}], {name: 'X'});
+
+{# Draw path #}
+{% for seg in segs %}
+board.create(
+        'line',
+        [
+              [{{ seg.0.0 }}, {{ seg.0.1 }}],
+              [{{ seg.1.0 }}, {{ seg.1.1 }}]
+        ],
+        {straightFirst:false, straightLast:false, strokeWidth:2});
+{% endfor %}
+</script>
+</body>
